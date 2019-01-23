@@ -68,9 +68,10 @@ import db
 import plex
 import utils
 from gdrive import Gdrive
+from rclone import Rclone
 
 google = None
-
+rclone = None
 
 ############################################################
 # QUEUE PROCESSOR
@@ -138,6 +139,7 @@ def start_google_monitor():
 
 def process_google_changes(changes):
     global google
+    global rclone
     file_paths = []
 
     # convert changes to file paths list
@@ -185,6 +187,10 @@ def process_google_changes(changes):
     # always dump the cache after running changes
     google.dump_cache()
 
+    # check for encryptes file paths and decrypt
+    for ndx, file_path in enumerate(file_paths):
+        file_paths[ndx] = rclone.decrypt_path(file_path)
+
     # remove files that are not of an allowed extension type
     removed_rejected_extensions = 0
     for file_path in copy(file_paths):
@@ -231,6 +237,7 @@ def process_google_changes(changes):
 
 def thread_google_monitor():
     global google
+    global rclone
 
     logger.info("Starting Google Drive changes monitor in 30 seconds...")
     time.sleep(30)
@@ -242,6 +249,9 @@ def thread_google_monitor():
         exit(1)
     else:
         logger.info("Google Drive access tokens were successfully loaded")
+
+
+    rclone = Rclone(conf.configs["RCLONE_CRYPT"])
 
     try:
 
