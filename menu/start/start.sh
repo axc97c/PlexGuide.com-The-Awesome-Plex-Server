@@ -190,10 +190,10 @@ read -p '↘️  Type Number | Press [ENTER]: ' typed < /dev/tty
   if [ "$typed" == "3" ]; then
 
     if [ "$edition" == "PG Edition - GDrive" ]; then
-      bash /opt/plexguide/menu/pgclone/pgclone.sh
+      bash /opt/plexguide/menu/pgcloner/pgclone.sh
       bash /opt/pgclone/gdrive.sh
   elif [ "$edition" == "PG Edition - GCE Feed" ]; then
-      bash bash /opt/plexguide/menu/pgclone/pgclone.sh
+      bash /opt/plexguide/menu/pgcloner/pgclone.sh
       bash /opt/pgclone/gdrive.sh
     elif [ "$edition" == "PG Edition - HD Multi" ]; then bash /opt/plexguide/menu/multihd/scripts/main.sh
     elif [ "$edition" == "PG Edition - HD Solo" ]; then
@@ -209,7 +209,8 @@ sleep 3
      fi
 
 elif [ "$typed" == "1" ]; then
-  bash /opt/plexguide/menu/traefik/traefik.sh
+  bash /opt/plexguide/menu/pgcloner/traefik.sh
+  bash /opt/traefik/traefik.sh
 elif [ "$typed" == "2" ]; then
   bash /opt/plexguide/menu/pgshield/pgshield.sh
 elif [ "$typed" == "4" ]; then
@@ -218,7 +219,8 @@ elif [ "$typed" == "5" ]; then
   bash /opt/plexguide/menu/pgpress/pgpress.sh
   bash /opt/pgpress/pressmain.sh
 elif [ "$typed" == "6" ]; then
-  bash /opt/plexguide/menu/pgvault/pgvault.sh
+  bash /opt/plexguide/menu/pgcloner/pgvault.sh
+  bash /opt/pgvault/pgvault.sh
 elif [ "$typed" == "7" ]; then
   bash /opt/plexguide/menu/cloudselect/cloudselect.sh
 elif [ "$typed" == "8" ]; then
